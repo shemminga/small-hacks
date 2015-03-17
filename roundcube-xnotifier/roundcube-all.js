@@ -2,7 +2,7 @@
 Roundcube
 **********************************************************/
 var name="Roundcube (all mailboxes)";
-var ver="2012-12-30";
+var ver="2015-03-17";
 var needServer=true;
 
 function init(){
@@ -57,6 +57,11 @@ function process(aData,aHttp){
     this.stage=ST_DATA+2;
     return true;
   case (ST_DATA+2):
+    var fnd=aData.match(/_task=login&_err=session/);
+    if(fnd){
+      this.reset(false);
+      return this.process("",aHttp);
+    }
     this.getHtml(this.dataURL+(new Date().getTime()),null,{"X-Requested-With":"XMLHttpRequest","X-Roundcube-Request":this.token});
     this.stage=ST_DATA;
     return false;
