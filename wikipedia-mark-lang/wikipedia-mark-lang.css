@@ -1,0 +1,13 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document domain("wikipedia.org") {
+  li.interwiki-en, li.interwiki-nl, li.interwiki-simple {
+    font-weight: bold;
+    margin-left: -13px !important;
+  }
+
+  li.interwiki-en:before, li.interwiki-nl:before, li.interwiki-simple:before {
+    content:"⚫ ";
+  }
+}
+
