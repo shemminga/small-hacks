@@ -1,8 +1,8 @@
 /**********************************************************
 Roundcube
 **********************************************************/
-var name="Roundcube";
-var ver="2012-11-01";
+var name="Roundcube (all mailboxes)";
+var ver="2012-12-30";
 var needServer=true;
 
 function init(){
@@ -13,17 +13,23 @@ function init(){
   }
   this.loginData=[this.server,"_user", "_pass","_task=mail&_action=login"];
   this.dataURL=this.server+"?_task=mail&_action=getunread&&_remote=1&_unlock=0&_=";
+  this.updateURL=this.server+"?_task=mail&_action=check-recent&_mbox=INBOX&_refresh=1&_remote=1&_unlock=0&_=";
   this.viewURL=this.server;
-}
-function getIconPageURL(){
-  return this.viewURL;
 }
 function getCount(aData) {
   var fnd=aData.match(/"action":"getunread"/);
   if(fnd) {
-    if(aData.match(/_task=login/))return -1;
-    fnd=aData.match(/\\"INBOX\\",(\d+),/);
-    return fnd?fnd[1]:0;
+    var cnt = 0;
+    var mailboxes = aData.match(/this\.set_unread_count\(\\"[^\\"]+\\",\d+/g);
+    if (mailboxes != null) {
+      for(var i = 0; i < mailboxes.length; i++) {
+        var mboxCnt = mailboxes[i].match(/this\.set_unread_count\(\\"[^\\"]+\\",(\d+)/);
+        if(mboxCnt != null) {
+          cnt += parseInt(mboxCnt[1], 10);
+        }
+      }
+    }
+    return cnt;
   }
   return -1;
 }
@@ -47,7 +53,12 @@ function process(aData,aHttp){
       this.token=fnd[1];
     }else break;
   case ST_DATA:
+    this.getHtml(this.updateURL+(new Date().getTime()),null,{"X-Requested-With":"XMLHttpRequest","X-Roundcube-Request":this.token});
+    this.stage=ST_DATA+2;
+    return true;
+  case (ST_DATA+2):
     this.getHtml(this.dataURL+(new Date().getTime()),null,{"X-Requested-With":"XMLHttpRequest","X-Roundcube-Request":this.token});
+    this.stage=ST_DATA;
     return false;
   }
   return this.baseProcess(aData,aHttp);
