@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name        Wikipedia for Multilinguals
-// @version     0.1
+// @version     0.2
 // @homepageURL http://sjoerd-hemminga.com/2012/03/wikipedia-for-multilinguals/
+// @updateURL   https://raw.githubusercontent.com/shemminga/small-hacks/master/wikipedia-mark-lang/wikipedia-mark-lang.js
+// @downloadURL https://raw.githubusercontent.com/shemminga/small-hacks/master/wikipedia-mark-lang/wikipedia-mark-lang.js
 // @author      Sjoerd Hemminga
 // @description Highlight known languages on Wikipedia.
 // @match       *://*.wikipedia.org/*
