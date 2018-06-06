@@ -2,7 +2,7 @@
 Roundcube
 **********************************************************/
 var name="Roundcube (all mailboxes)";
-var ver="2015-03-17";
+var ver="2018-06-06";
 var needServer=true;
 
 function init(){
@@ -19,17 +19,17 @@ function init(){
 function getCount(aData) {
   var fnd=aData.match(/"action":"getunread"/);
   if(fnd) {
-    var cnt = 0;
+    var cnts = {};
     var mailboxes = aData.match(/this\.set_unread_count\(\\"[^\\"]+\\",\d+/g);
     if (mailboxes != null) {
       for(var i = 0; i < mailboxes.length; i++) {
-        var mboxCnt = mailboxes[i].match(/this\.set_unread_count\(\\"[^\\"]+\\",(\d+)/);
+        var mboxCnt = mailboxes[i].match(/this\.set_unread_count\(\\"([^\\"]+)\\",(\d+)/);
         if(mboxCnt != null) {
-          cnt += parseInt(mboxCnt[1], 10);
+          cnts[mboxCnt[1]] = parseInt(mboxCnt[2], 10);
         }
       }
     }
-    return cnt;
+    return Object.values(cnts).reduce((acc, val) => acc + val);
   }
   return -1;
 }
