@@ -6,6 +6,7 @@ if [[ -z "$1" ]]; then
 fi
 
 hostip=$1
+iptables -F
 
 for i in $(wget https://check.torproject.org/cgi-bin/TorBulkExitList.py\?ip=$hostip -O- -q |\
 		grep -E '^[[:digit:]]+(\.[[:digit:]]+){3}$'); do
