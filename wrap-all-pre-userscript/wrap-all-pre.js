@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Wrap all pre
-// @version     0.2
+// @version     0.3
 // @author      Sjoerd Hemminga
 // @updateURL   https://raw.githubusercontent.com/shemminga/small-hacks/master/wrap-all-pre-userscript/wrap-all-pre.js
 // @downloadURL https://raw.githubusercontent.com/shemminga/small-hacks/master/wrap-all-pre-userscript/wrap-all-pre.js
@@ -14,5 +14,5 @@
 	var cssTextNode = document.createTextNode(css);
 	var style = document.createElement('style');
 	style.appendChild(cssTextNode);
-	document.head.appendChild(style);
+	(document.head ?? document).appendChild(style);
 })();
