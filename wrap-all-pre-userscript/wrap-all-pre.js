@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name        Wrap all pre
-// @version     0.4
+// @version     0.5
 // @author      Sjoerd Hemminga
 // @updateURL   https://raw.githubusercontent.com/shemminga/small-hacks/master/wrap-all-pre-userscript/wrap-all-pre.js
 // @downloadURL https://raw.githubusercontent.com/shemminga/small-hacks/master/wrap-all-pre-userscript/wrap-all-pre.js
 // @description Wrap all pre, to prevent endless scrollbars.
-// @include     *
+// @match       *://*/*
 // @run-at      document-idle
 // ==/UserScript==
 
